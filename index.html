@@ -6,27 +6,25 @@
   <title>봉양중학교 인생네컷</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background: #c8e6c9; /* 연두 단색 배경 */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 10px;
-    }
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    background: #c8e6c9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px; /* 여백 확보 */
+  }
 
-    .container {
-      width: 100%;
-      max-width: 390px;
-      background: #fff;
-      border-radius: 12px;
-      padding: 10px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.2);
-
-      /* 인생네컷 프레임 내부 클로버 패턴 */
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><text x='0' y='20' font-size='20' fill='rgba(129,199,132,0.1)'>🍀</text></svg>");
-      background-repeat: repeat;
-    }
+  .container {
+    width: 80vw;          /* 모바일 여유 공간 */
+    max-width: 390px;     /* 최대 크기 제한 */
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.2);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60'><text x='0' y='30' font-size='30' fill='rgba(129,199,132,0.05)'>🍀</text></svg>");
+    background-repeat: repeat;
+  }
 
     .photos {
       display: flex;
@@ -167,10 +165,21 @@
 
     function saveAsImage() {
       html2canvas(document.getElementById('captureArea'), { scale: 3 }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = '봉양중학교_인생네컷.png';
-        link.href = canvas.toDataURL();
-        link.click();
+        canvas.toBlob(function(blob) {
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = '봉양중학교_인생네컷.png';
+
+          // 모바일: 새 창 fallback
+          if (/(iPhone|iPad|iPod|Android)/i.test(navigator.userAgent)) {
+            const newWin = window.open();
+            newWin.document.write(`<img src="${url}" style="width:100%">`);
+            newWin.document.title = "길게 눌러 저장하세요!";
+          } else {
+            link.click();
+          }
+        });
       });
     }
 
