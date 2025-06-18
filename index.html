@@ -6,25 +6,30 @@
   <title>봉양중학교 인생네컷</title>
   <style>
     body {
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0;
-    background: #c8e6c9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px; /* 여백 확보 */
-  }
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #c8e6c9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
 
-  .container {
-    width: 80vw;          /* 모바일 여유 공간 */
-    max-width: 390px;     /* 최대 크기 제한 */
-    background: #fff;
-    border-radius: 12px;
-    padding: 10px;
-    box-shadow: 0 0 12px rgba(0,0,0,0.2);
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60'><text x='0' y='30' font-size='30' fill='rgba(129,199,132,0.05)'>🍀</text></svg>");
-    background-repeat: repeat;
-  }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 390px;
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.2);
+      margin: 0 auto;
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+    }
 
     .photos {
       display: flex;
@@ -32,8 +37,16 @@
       gap: 10px;
     }
 
+    .photo-wrapper {
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      padding: 8px; /* 점선과 배경 사이 여백 */
+      border-radius: 12px;
+    }
+
     .photo-frame {
-      background: #fff; /* 사진 영역 흰색 */
+      background: #fff;
       width: 100%;
       aspect-ratio: 3 / 2;
       border: 4px dashed #81c784;
@@ -63,7 +76,7 @@
 
     .footer {
       text-align: center;
-      color: #4caf50;
+      color: #f1f4f1;
       margin-top: 10px;
     }
 
@@ -113,22 +126,30 @@
 
   <div class="container" id="captureArea">
     <div class="photos">
-      <div class="photo-frame" onclick="uploadImage(0)">
-        <span class="photo-description">첫번째 사진</span>
+      <div class="photo-wrapper">
+        <div class="photo-frame" onclick="uploadImage(0)">
+          <span class="photo-description">첫번째 사진</span>
+        </div>
       </div>
-      <div class="photo-frame" onclick="uploadImage(1)">
-        <span class="photo-description">두번째 사진</span>
+      <div class="photo-wrapper">
+        <div class="photo-frame" onclick="uploadImage(1)">
+          <span class="photo-description">두번째 사진</span>
+        </div>
       </div>
-      <div class="photo-frame" onclick="uploadImage(2)">
-        <span class="photo-description">세번째 사진</span>
+      <div class="photo-wrapper">
+        <div class="photo-frame" onclick="uploadImage(2)">
+          <span class="photo-description">세번째 사진</span>
+        </div>
       </div>
-      <div class="photo-frame" onclick="uploadImage(3)">
-        <span class="photo-description">네번째 사진</span>
+      <div class="photo-wrapper">
+        <div class="photo-frame" onclick="uploadImage(3)">
+          <span class="photo-description">네번째 사진</span>
+        </div>
       </div>
     </div>
     <div class="footer">
       <div class="f-title">봉양중학교 인생네컷 🍀</div>
-      <div class="f-message">오늘도 행운 가득한 하루 되세요!</div>
+      <div class="f-message">봉실봉실 봉양중학교 파이팅!</div>
       <div class="f-message" id="today"></div>
     </div>
   </div>
@@ -171,7 +192,6 @@
           link.href = url;
           link.download = '봉양중학교_인생네컷.png';
 
-          // 모바일: 새 창 fallback
           if (/(iPhone|iPad|iPod|Android)/i.test(navigator.userAgent)) {
             const newWin = window.open();
             newWin.document.write(`<img src="${url}" style="width:100%">`);
